@@ -15,8 +15,10 @@ npm install immigration-rethinkdb --save
 
 ## Usage
 
+The adapter will automatically create the `db` and `table` on first run.
+
 ```sh
-immigration --use [ immigration-rethinkdb --table Migration ] up --new
+immigration --use [ immigration-rethinkdb --config support/rethinkdb --table Migration ] up --new
 ```
 
 ### Options

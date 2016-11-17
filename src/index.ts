@@ -12,7 +12,7 @@ export interface InitOptions extends PluginOptions {
   password?: string
   timeout?: number
   cert?: string | Buffer
-  connectOptions?: {}
+  connectOptions?: any
   table?: string
   config?: string
 }
@@ -38,8 +38,16 @@ export function init (initOptions: InitOptions, dir: string) {
     }
   }
 
-  if (typeof options.table !== 'string') {
+  const connectOptions = options.connectOptions || {}
+  const tableName = options.table
+  const dbName = connectOptions.db || options.db
+
+  if (typeof tableName !== 'string') {
     throw new TypeError(`Expected "table" to exist in configuration options`)
+  }
+
+  if (typeof dbName !== 'string') {
+    throw new TypeError(`Expected "db" to exist in configuration options`)
   }
 
   /**
@@ -47,27 +55,34 @@ export function init (initOptions: InitOptions, dir: string) {
    */
   function prepare () {
     if (!connection) {
-      connection = Promise.resolve(r.connect(options.connectOptions || {
-        host: options.host,
-        port: options.port,
-        db: options.db,
-        user: options.user,
-        password: options.password,
-        timeout: options.timeout,
-        ssl: options.cert ? {
+      connection = Promise.resolve(r.connect({
+        host: connectOptions.host || options.host,
+        port: connectOptions.port || options.port,
+        db: connectOptions.db || options.db,
+        user: connectOptions.user || options.user,
+        password: connectOptions.password || options.password,
+        timeout: connectOptions.timeout || options.timeout,
+        ssl: connectOptions.ssl || (options.cert ? {
           ca: options.cert
-        } : undefined
+        } : undefined)
       }))
         .then(async (connection) => {
+          try {
+            await r.dbCreate(dbName as string).run(connection)
+          } catch (err) {
+            // Handle conflicts with already created databases.
+            if (!(err.name === 'ReqlOpFailedError' && /already exists\.$/.test(err.msg))) {
+              throw err
+            }
+          }
+
           try {
             await r.tableCreate(options.table as string, { primaryKey: 'name' }).run(connection)
           } catch (err) {
             // Handle conflicts with already created tables.
-            if (err.name === 'ReqlOpFailedError' && /already exists\.$/.test(err.msg)) {
-              return connection
+            if (!(err.name === 'ReqlOpFailedError' && /already exists\.$/.test(err.msg))) {
+              throw err
             }
-
-            throw err
           }
 
           return connection
