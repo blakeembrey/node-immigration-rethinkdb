@@ -1,0 +1,48 @@
+{
+  "name": "immigration-rethinkdb",
+  "version": "0.0.0",
+  "description": "RethinkDB adapter for immigration",
+  "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "typings.json"
+  ],
+  "scripts": {
+    "lint": "tslint \"src/**/*.ts\"",
+    "build": "rm -rf dist/ && tsc",
+    "test-cov": "jest --coverage",
+    "test": "npm run build && npm run lint && npm run test-cov",
+    "prepublish": "typings install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blakeembrey/node-immigration-rethinkdb.git"
+  },
+  "keywords": [
+    "immigration",
+    "migrate",
+    "rethinkdb"
+  ],
+  "author": {
+    "name": "Blake Embrey",
+    "email": "hello@blakeembrey.com",
+    "url": "http://blakeembrey.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blakeembrey/node-immigration-rethinkdb/issues"
+  },
+  "homepage": "https://github.com/blakeembrey/node-immigration-rethinkdb",
+  "devDependencies": {
+    "jest": "^17.0.1",
+    "rimraf": "^2.5.4",
+    "tslint": "^3.15.1",
+    "tslint-config-standard": "^1.5.0",
+    "typescript": "^2.0.9",
+    "typings": "^2.0.0"
+  },
+  "peerDependencies": {
+    "immigration": "^2.1.2",
+    "rethinkdb": "^2.3.3"
+  }
+}
