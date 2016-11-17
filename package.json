@@ -44,7 +44,7 @@
     "typings": "^2.0.0"
   },
   "peerDependencies": {
-    "immigration": "^2.1.2",
+    "immigration": "^2.1.4",
     "rethinkdb": "^2.3.3"
   }
 }
