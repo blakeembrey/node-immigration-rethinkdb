@@ -1,6 +1,6 @@
 {
   "name": "immigration-rethinkdb",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "RethinkDB adapter for immigration",
   "main": "dist/index.js",
   "files": [
