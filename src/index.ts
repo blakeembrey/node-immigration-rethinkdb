@@ -12,7 +12,7 @@ export interface InitOptions extends PluginOptions {
   password?: string
   timeout?: number
   cert?: string | Buffer
-  connectOptions?: any
+  connectOptions?: {}
   table?: string
   config?: string
 }
