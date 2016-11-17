@@ -6,6 +6,11 @@ notifications:
     on_success: never
     on_failure: change
 
+install:
+  - npm install rethinkdb
+  - npm install immigration
+  - npm install
+
 node_js:
   - '4'
   - stable

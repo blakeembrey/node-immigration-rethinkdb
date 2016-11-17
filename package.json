@@ -34,9 +34,7 @@
   },
   "homepage": "https://github.com/blakeembrey/node-immigration-rethinkdb",
   "devDependencies": {
-    "immigration": "^2.1.2",
     "jest": "^17.0.1",
-    "rethinkdb": "^2.3.3",
     "rimraf": "^2.5.4",
     "tslint": "^3.15.1",
     "tslint-config-standard": "^1.5.0",
