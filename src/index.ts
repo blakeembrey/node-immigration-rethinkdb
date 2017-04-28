@@ -55,7 +55,7 @@ export function init (initOptions: InitOptions, dir: string) {
    */
   function prepare () {
     if (!connection) {
-      connection = Promise.resolve(r.connect({
+      connection = Promise.resolve<rethinkdb.Connection>(r.connect({
         host: connectOptions.host || options.host,
         port: connectOptions.port || options.port,
         db: connectOptions.db || options.db,
@@ -66,7 +66,7 @@ export function init (initOptions: InitOptions, dir: string) {
           ca: options.cert
         } : undefined)
       }))
-        .then(async (connection) => {
+        .then(async (connection: rethinkdb.Connection) => {
           try {
             await r.dbCreate(dbName as string).run(connection)
           } catch (err) {

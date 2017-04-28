@@ -38,7 +38,7 @@
     "rimraf": "^2.5.4",
     "tslint": "^5.0.0",
     "tslint-config-standard": "^5.0.0",
-    "typescript": "^2.1.1",
+    "typescript": "^2.3.1",
     "typings": "^2.0.0"
   },
   "peerDependencies": {
